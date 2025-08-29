@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RewardHub - Mobile Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+  body {
+    background: linear-gradient(160deg, #071025, #04111a);
+    color: #e6eef8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    padding-bottom: 70px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #06b6d4, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  main {
+    flex: 1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.03);
+    border-radius: 18px;
+    padding: 20px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.2s, border 0.2s;
+  }
+  .card:hover { transform: translateY(-3px); border: 1px solid rgba(6,182,212,0.4); }
+
+  .card h3 {
+    font-size: 1.2rem;
+    background: linear-gradient(90deg, #06b6d4, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .points { font-size: 2rem; font-weight: bold; color: #06b6d4; }
+  .card p { color: #94a3b8; font-size: 0.9rem; }
+
+  .button {
+    background: linear-gradient(90deg, #06b6d4, #7c3aed);
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+    text-align: center;
+    transition: transform 0.2s;
+    width: 100%;
+  }
+  .button:hover { transform: scale(1.05); }
+
+  .section-title {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #06b6d4, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 5px;
+  }
+  .horizontal-scroll::-webkit-scrollbar { display: none; }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  th, td { padding: 10px; text-align: left; color: #e6eef8; }
+  th { color: #06b6d4; font-weight: 600; }
+  tr:hover { background: rgba(6,182,212,0.05); border-radius: 12px; }
+
+  footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    z-index: 20;
+  }
+
+  .bottom-nav button {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #94a3b8;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .bottom-nav button.active { color: #06b6d4; }
+
+  .bottom-nav svg { width: 24px; height: 24px; margin-bottom: 3px; fill: currentColor; }
+
+  section { display: none; }
+  section.active { display: flex; flex-direction: column; gap: 20px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>RewardHub</h1>
+</header>
+
+<main>
+  <!-- Dashboard Section -->
+  <section id="dashboard" class="active">
+    <div class="card" style="align-items: center;">
+      <h3>Analytics</h3>
+      <p>Track your progress, points earned, and activity trends.</p>
+    </div>
+    <div class="card" style="align-items: center;">
+      <h3>Total Points</h3>
+      <p class="points">1,250</p>
+    </div>
+  </section>
+
+  <!-- Earn Section -->
+  <section id="earn">
+    <div class="horizontal-scroll">
+      <div class="card" style="min-width: 150px;">
+        <h3>Surveys</h3><p>Complete surveys to earn points</p><button class="button">Start</button>
+      </div>
+      <div class="card" style="min-width: 150px;">
+        <h3>Games</h3><p>Play games and earn</p><button class="button">Play</button>
+      </div>
+      <div class="card" style="min-width: 150px;">
+        <h3>Rewards</h3><p>Redeem your points</p><button class="button">Redeem</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cashout Section -->
+  <section id="cashout">
+    <h2 class="section-title">Transaction History</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Reward</th><th>Points</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2025-08-28</td><td>PayPal Cash</td><td>500</td></tr>
+          <tr><td>2025-08-25</td><td>Amazon Gift Card</td><td>250</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section-title">Cashout Options</h2>
+    <div class="horizontal-scroll">
+      <div class="card" style="min-width: 150px;">
+        <h3>Vouchers</h3><p>Redeem points for shopping vouchers</p><button class="button">Redeem</button>
+      </div>
+      <div class="card" style="min-width: 150px;">
+        <h3>Bank Transfer</h3><p>Transfer points to your bank account</p><button class="button">Transfer</button>
+      </div>
+      <div class="card" style="min-width: 150px;">
+        <h3>Gift Cards</h3><p>Redeem points for popular gift cards</p><button class="button">Redeem</button>
+      </div>
+      <div class="card" style="min-width: 150px;">
+      <h3>Digital Wallets</h3><p>Send points to PayPal, Skrill, or other wallets</p><button class="button">Send</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <button class="active" data-target="dashboard">
+    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>Dashboard
+  </button>
+  <button data-target="earn">
+    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Earn
+  </button>
+  <button data-target="cashout">
+    <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.84L17.16 12H14v6H10v-6H6.84L12 5.84z"/></svg>Cashout
+  </button>
+</nav>
+
+<footer>
+  &copy; 2025 RewardHub. All rights reserved.
+</footer>
+
+<script>
+const buttons = document.querySelectorAll('.bottom-nav button');
+const sections = document.querySelectorAll('main section');
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const targetId = btn.getAttribute('data-target');
+    sections.forEach(sec => sec.classList.remove('active'));
+    document.getElementById(targetId).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
