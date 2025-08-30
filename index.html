@@ -5,229 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RewardHub - Earn Rewards Easily</title>
   <style>
-    /* Your CSS */
-    /* Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-
-    body {
-      background: linear-gradient(160deg, #071025, #04111a);
-      color: #e6eef8;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 10px;
-      background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    header h1 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      background: linear-gradient(90deg, #06b6d4, #7c3aed);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: #94a3b8;
-      font-size: 0.95rem;
-      transition: color 0.3s;
-    }
-
-    nav a:hover { color: #06b6d4; }
-
-    .hero {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px 20px;
-    }
-
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      color: #94a3b8;
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-    }
-
-    .btn {
-      background: linear-gradient(90deg, #06b6d4, #7c3aed);
-      border: none;
-      padding: 14px 30px;
-      border-radius: 8px;
-      color: white;
-      font-size: 1.05rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .btn:hover { transform: scale(1.05); }
-
-    .features {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 25px;
-      padding: 60px 20px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.03);
-      border-radius: 12px;
-      padding: 25px;
-      width: 280px;
-      text-align: center;
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: transform 0.3s, border 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border: 1px solid rgba(6,182,212,0.4);
-    }
-
-    .card h3 {
-      margin-bottom: 10px;
-      font-size: 1.3rem;
-      background: linear-gradient(90deg, #06b6d4, #7c3aed);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .card p { color: #94a3b8; font-size: 0.95rem; }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      font-size: 0.9rem;
-      color: #94a3b8;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    /* Signup Form Styles */
-    .signup-form {
-      background: rgba(255,255,255,0.03);
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 400px;
-      width: 100%;
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255,255,255,0.05);
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .signup-form h3 {
-      margin-bottom: 10px;
-      font-size: 1.6rem;
-      background: linear-gradient(90deg, #06b6d4, #7c3aed);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .signup-form button {
-      width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .google-btn { background: #4285F4; color: #fff; }
-    .apple-btn { background: #000; color: #fff; }
-    .email-btn { background: #06b6d4; color: #fff; }
-
-    .signup-form input[type="email"],
-    .signup-form input[type="password"] {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #94a3b8;
-      background: rgba(255,255,255,0.05);
-      color: #fff;
-    }
-
-    .signup-form label {
-  display: flex;            /* Make checkbox and text horizontal */
-  align-items: flex-start;  /* Align checkbox to top of text */
-  gap: 10px;                /* Space between checkbox and text */
-  font-size: 0.85rem;
-  color: #94a3b8;
-  line-height: 1.4;
-  margin-top: 10px;
-  cursor: pointer;
-  position: relative;
-}
-
-.signup-form label input[type="checkbox"] {
-  appearance: none;         /* Remove default checkbox */
-  width: 20px;
-  height: 20px;
-  border: 2px solid #06b6d4;
-  border-radius: 4px;
-  background: rgba(0,0,0,0.2);
-  cursor: pointer;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.signup-form label input[type="checkbox"]:checked {
-  background: linear-gradient(#4285F4);
-  border-color: #06b6d4;
-}
-
-/* Add checkmark using ::after */
-.signup-form label input[type="checkbox"]::after {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: 4px;
-  width: 6px;
-  height: 12px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.signup-form label input[type="checkbox"]:checked::after {
-  opacity: 1;
-}
-
-
-    .signup-form label span { display: inline-block; margin-left: 8px; position: relative; }
-
-    .signup-form small { font-size: 0.75rem; color: #94a3b8; }
-
-    .signup-form a { color: #06b6d4; text-decoration: none; }
-    .signup-form a:hover { text-decoration: underline; }
-
+    /* Your CSS here */
   </style>
 </head>
 <body>
@@ -242,7 +20,6 @@
     <h2>Earn Rewards. Play. Win.</h2>
     <p>Get paid for playing games, completing surveys, and trying out apps. Fast, fun, and free!</p>
 
-    <!-- Signup Form -->
     <form class="signup-form">
       <h3>Get Started!</h3>
       <button type="button" class="google-btn">Continue with Google</button>
@@ -259,21 +36,6 @@
     </form>
   </section>
 
-  <section class="features">
-    <div class="card">
-      <h3>Play Games</h3>
-      <p>Play fun games and earn points while enjoying your favorite activities.</p>
-    </div>
-    <div class="card">
-      <h3>Take Surveys</h3>
-      <p>Share your opinions in surveys and get rewarded instantly.</p>
-    </div>
-    <div class="card">
-      <h3>Cash Out</h3>
-      <p>Redeem points for PayPal cash, gift cards, and exclusive rewards.</p>
-    </div>
-  </section>
-
   <footer>
     &copy; 2025 RewardHub. All rights reserved.
   </footer>
@@ -281,23 +43,22 @@
   <!-- Appwrite SDK -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
   <script>
-    // Initialize Appwrite client
     const client = new Appwrite.Client()
-      .setEndpoint("https://fra.cloud.appwrite.io/v1") // e.g. https://cloud.appwrite.io/v1
-      .setProject("68b185b20006861f905b"); // Replace with your Appwrite project ID
+      .setEndpoint("https://fra.cloud.appwrite.io/v1")
+      .setProject("68b185b20006861f905b");
 
     const account = new Appwrite.Account(client);
 
-    // Google Login
     document.querySelector(".google-btn").addEventListener("click", async () => {
       try {
-        account.createOAuth2Session(
+        // OAuth login
+        await account.createOAuth2Session(
           "google",
-          "https://rewardhub.appwrite.network/Dashboard", // success redirect
-          "https://rewardhub.appwrite.network"     // failure redirect
+          "https://rewardhub.appwrite.network/Dashboard", // success
+          "https://rewardhub.appwrite.network"          // failure
         );
       } catch (err) {
-        console.error(err);
+        console.error("OAuth Error:", err);
       }
     });
   </script>
