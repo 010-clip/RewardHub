@@ -4,35 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Appwrite TablesDB Demo</title>
-  <script src="https://cdn.jsdelivr.net/npm/appwrite@1.6.x/dist/appwrite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@1.8.x/dist/appwrite.min.js"></script>
+  <style>
+    /* Styling for the output textarea */
+    #output {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+      padding: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
 </head>
 <body>
   <h1>Appwrite TablesDB Demo</h1>
   <button id="fetchDataBtn">Fetch Data</button>
-  <pre id="output"></pre>
+  <textarea id="output" readonly placeholder="Fetched data will appear here..."></textarea>
 
   <script>
     // Initialize Appwrite client
     const client = new Appwrite.Client();
-    client.setEndpoint('https://fra.cloud.appwrite.io/v1') // Replace <REGION> with your Appwrite region
-          .setProject('68b185b20006861f905b'); // Replace <PROJECT_ID> with your Project ID
+    client
+      .setEndpoint('https://fra.cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
+      .setProject('68b185b20006861f905b'); // Replace with your Project ID
 
     // Initialize TablesDB service
-    const databases = new Appwrite.Databases(client);
+    const tablesDB = new Appwrite.TablesDB(client);
 
     // Define your database and table IDs
-    const databaseId = '68b18d62000e8278dc31';
-    const tableId = 'data';
+    const databaseId = '68b18d62000e8278dc31'; // Replace with your Database ID
+    const tableId = 'data'; // Replace with your Table ID
 
-    // Fetch data from Appwrite TablesDB
+    // Fetch data function
     async function fetchData() {
       try {
-        const rows = await databases.listRows(databaseId, tableId);
-        document.getElementById('output').textContent = JSON.stringify(rows, null, 2);
-        alert('Data fetched successfully!');
+        const response = await tablesDB.listRows(databaseId, tableId);
+        document.getElementById('output').value = JSON.stringify(response, null, 2);
       } catch (error) {
         console.error('Error fetching data:', error);
-        alert('Failed to fetch data.');
+        alert('Failed to fetch data. Check console for details.');
       }
     }
 
