@@ -76,41 +76,46 @@ const DATABASE_ID = "68b18d62000e8278dc31"; // Your DB ID
 const USERS_TABLE_ID = "data"; // Your table ID
 
 async function loadDashboard() {
+  alert("Starting dashboard load...");
+
   try {
-    // 1. Check current session
-    const session = await account.getSession("current"); // ensures session exists
+    // 1. Get current user
     const user = await account.get();
+    alert("User session retrieved: " + JSON.stringify(user));
     const userId = user.$id;
 
-    // 2. Check if user row exists
+    // 2. Check for user row
     const response = await database.listDocuments(DATABASE_ID, USERS_TABLE_ID, [
       Appwrite.Query.equal("userId", userId)
     ]);
+    alert("Database response: " + JSON.stringify(response));
 
     let userDoc;
     if (response.total === 0) {
-      // Create row if missing
+      alert("User not found, creating new row...");
       userDoc = await database.createDocument(
         DATABASE_ID,
         USERS_TABLE_ID,
         Appwrite.ID.unique(),
         { userId, points: 0 }
       );
+      alert("Created user row: " + JSON.stringify(userDoc));
     } else {
       userDoc = response.documents[0];
+      alert("User row found: " + JSON.stringify(userDoc));
     }
 
-    // 3. Populate points
+    // 3. Populate dashboard
     document.getElementById("total-points").innerText = userDoc.points;
+    alert("Dashboard populated with points: " + userDoc.points);
 
   } catch (err) {
-    console.error("Not logged in or session not ready:", err);
+    alert("Error loading dashboard: " + JSON.stringify(err));
     window.location.href = "/"; // redirect to login
   }
 }
 
 loadDashboard();
-
 
 // Bottom nav logic
 const buttons = document.querySelectorAll('.bottom-nav button');
@@ -125,5 +130,6 @@ buttons.forEach(btn => {
   });
 });
 </script>
+
 </body>
 </html>
