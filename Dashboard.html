@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RewardHub - Mobile Dashboard</title>
 <style>
-  /*css style*\
+  /* Your CSS here */
 </style>
 </head>
 <body>
@@ -47,24 +47,16 @@
         <thead>
           <tr><th>Date</th><th>Reward</th><th>Points</th></tr>
         </thead>
-        <tbody id="transaction-history">
-          <!-- Filled dynamically -->
-        </tbody>
+        <tbody id="transaction-history"></tbody>
       </table>
     </div>
   </section>
 </main>
 
 <nav class="bottom-nav">
-  <button class="active" data-target="dashboard">
-    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>Dashboard
-  </button>
-  <button data-target="earn">
-    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Earn
-  </button>
-  <button data-target="cashout">
-    <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.84L17.16 12H14v6H10v-6H6.84L12 5.84z"/></svg>Cashout
-  </button>
+  <button class="active" data-target="dashboard">Dashboard</button>
+  <button data-target="earn">Earn</button>
+  <button data-target="cashout">Cashout</button>
 </nav>
 
 <footer>
@@ -73,58 +65,54 @@
 
 <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
 <script>
-  const client = new Appwrite.Client()
-    .setEndpoint('https://fra.cloud.appwrite.io/v1') // Your Appwrite endpoint
-    .setProject('68b185b20006861f905b'); // Your Appwrite project ID
+const client = new Appwrite.Client()
+  .setEndpoint("https://fra.cloud.appwrite.io/v1")
+  .setProject("68b185b20006861f905b");
 
-  const account = new Appwrite.Account(client);
-  const tablesDB = new Appwrite.TablesDB(client);
+const account = new Appwrite.Account(client);
+const database = new Appwrite.Databases(client);
 
-  const DATABASE_ID = '68b18d62000e8278dc31';
-  const TABLE_ID = 'data';
+const DATABASE_ID = "68b18d62000e8278dc31"; // Your DB ID
+const USERS_TABLE_ID = "data"; // Your table ID
 
-  async function loadDashboard() {
-    try {
-      // 1. Get current user session
-      const user = await account.get();
-      const userId = user.$id;
+async function loadDashboard() {
+  try {
+    // 1. Get current user
+    const user = await account.get();
+    const userId = user.$id;
 
-      // 2. Try to get the user's row
-      const response = await tablesDB.listRows(DATABASE_ID, TABLE_ID, [
-        Appwrite.Query.equal('userId', userId)
-      ]);
+    // 2. Check for user row
+    const response = await database.listDocuments(DATABASE_ID, USERS_TABLE_ID, [
+      Appwrite.Query.equal("userId", userId)
+    ]);
 
-      let userRow;
-
-      if (response.total === 0) {
-        // 3. If user row doesn't exist, create it
-        userRow = await tablesDB.createRow(
-          DATABASE_ID,
-          TABLE_ID,
-          Appwrite.ID.unique(),
-          { userId: userId, points: 0 }
-        );
-      } else {
-        userRow = response.rows[0];
-      }
-
-      // 4. Populate points
-      document.getElementById('total-points').innerText = userRow.points;
-
-    } catch (err) {
-      console.error('User not logged in or error:', err);
-      window.location.href = '/'; // redirect to login
+    let userDoc;
+    if (response.total === 0) {
+      // Create if not exist
+      userDoc = await database.createDocument(
+        DATABASE_ID,
+        USERS_TABLE_ID,
+        Appwrite.ID.unique(),
+        { userId, points: 0 }
+      );
+    } else {
+      userDoc = response.documents[0];
     }
+
+    // 3. Populate dashboard
+    document.getElementById("total-points").innerText = userDoc.points;
+
+  } catch (err) {
+    console.error("Error loading dashboard:", err);
+    window.location.href = "/"; // redirect to login
   }
+}
 
-  // Initialize dashboard
-  loadDashboard();
+loadDashboard();
 
-
-// Bottom navigation logic
+// Bottom nav logic
 const buttons = document.querySelectorAll('.bottom-nav button');
 const sections = document.querySelectorAll('main section');
-
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
     buttons.forEach(b => b.classList.remove('active'));
@@ -135,7 +123,5 @@ buttons.forEach(btn => {
   });
 });
 </script>
-
-
 </body>
 </html>
