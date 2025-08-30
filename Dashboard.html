@@ -113,10 +113,9 @@ const client = new Appwrite.Client()
 const account = new Appwrite.Account(client);
 const database = new Appwrite.Databases(client);
 
-// Replace these with your Appwrite database and collection IDs
-const DATABASE_ID = "rewardhub_db";
-const USERS_COLLECTION_ID = "users_col";
-const TRANSACTIONS_COLLECTION_ID = "transactions_col";
+// Your Appwrite database and collection IDs
+const DATABASE_ID = "RewardHubDB";
+const USERS_COLLECTION_ID = "data";
 
 async function loadDashboard() {
   try {
@@ -130,7 +129,7 @@ async function loadDashboard() {
       Appwrite.Query.equal("userId", userId)
     ]);
 
-    if(response.total === 0){
+    if (response.total === 0) {
       // If user document doesn't exist, create it
       userDoc = await database.createDocument(
         DATABASE_ID,
@@ -144,20 +143,6 @@ async function loadDashboard() {
 
     // 3. Populate points
     document.getElementById("total-points").innerText = userDoc.points;
-
-    // 4. Load transaction history (optional)
-    const transactions = await database.listDocuments(DATABASE_ID, TRANSACTIONS_COLLECTION_ID, [
-      Appwrite.Query.equal("userId", userId),
-      Appwrite.Query.orderDesc("$createdAt")
-    ]);
-
-    const tbody = document.getElementById("transaction-history");
-    tbody.innerHTML = "";
-    transactions.documents.forEach(tx => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${new Date(tx.date).toLocaleDateString()}</td><td>${tx.reward}</td><td>${tx.points}</td>`;
-      tbody.appendChild(tr);
-    });
 
   } catch (err) {
     console.error("User not logged in or error:", err);
@@ -182,6 +167,7 @@ buttons.forEach(btn => {
   });
 });
 </script>
+
 
 </body>
 </html>
