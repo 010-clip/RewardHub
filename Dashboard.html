@@ -106,84 +106,69 @@
 
 <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
 <script>
-const client = new Appwrite.Client()
-  .setEndpoint("https://fra.cloud.appwrite.io/v1") // your endpoint
-  .setProject("68b185b20006861f905b"); // your project ID
+  const client = new Appwrite.Client()
+    .setEndpoint("https://fra.cloud.appwrite.io/v1") // your endpoint
+    .setProject("68b185b20006861f905b"); // your project ID
 
-const account = new Appwrite.Account(client);
-const database = new Appwrite.Databases(client);
+  const account = new Appwrite.Account(client);
+  const tablesDB = new Appwrite.TablesDB(client);
 
-const DATABASE_ID = "RewardHubDB";
-const USERS_COLLECTION_ID = "data";
+  const DATABASE_ID = "RewardHubDB";
+  const USERS_TABLE_ID = "data";
 
-// Show loading while checking session
-document.getElementById("total-points").innerText = "Loading...";
+  // Show loading while checking session
+  document.getElementById("total-points").innerText = "Loading...";
 
-async function loadDashboard() {
-  try {
-    // 1. Get current user session
-    let user;
+  async function loadDashboard() {
     try {
-      user = await account.get();
+      // 1. Get current user session
+      let user;
+      try {
+        user = await account.get();
+      } catch (err) {
+        console.warn("Session not ready yet, retrying...");
+        // Retry once after short delay
+        await new Promise(res => setTimeout(res, 500));
+        user = await account.get(); // try again
+      }
+
+      const userId = user.$id;
+
+      // 2. Try to get the user's row
+      let userRow;
+      const response = await tablesDB.listRows(DATABASE_ID, USERS_TABLE_ID, [
+        Appwrite.Query.equal("userId", userId)
+      ]);
+
+      if (response.total === 0) {
+        // If user row doesn't exist, create it
+        userRow = await tablesDB.createRow(
+          DATABASE_ID,
+          USERS_TABLE_ID,
+          Appwrite.ID.unique(),
+          { userId: userId, points: 0 }
+        );
+      } else {
+        userRow = response.rows[0];
+      }
+
+      // 3. Populate points
+      document.getElementById("total-points").innerText = userRow.points;
+
     } catch (err) {
-      console.warn("Session not ready yet, retrying...");
-      // Retry once after short delay
-      await new Promise(res => setTimeout(res, 500));
-      user = await account.get(); // try again
-    }
-
-    const userId = user.$id;
-
-    // 2. Try to get the user's document
-    let userDoc;
-    const response = await database.listDocuments(DATABASE_ID, USERS_COLLECTION_ID, [
-      Appwrite.Query.equal("userId", userId)
-    ]);
-
-    if (response.total === 0) {
-      // If user document doesn't exist, create it
-      userDoc = await database.createDocument(
-        DATABASE_ID,
-        USERS_COLLECTION_ID,
-        Appwrite.ID.unique(),
-        { userId: userId, points: 0 }
-      );
-    } else {
-      userDoc = response.documents[0];
-    }
-
-    // 3. Populate points
-    document.getElementById("total-points").innerText = userDoc.points;
-
-  } catch (err) {
-    console.error("Error loading dashboard:", err);
-    // Only redirect if definitely not logged in
-    if (err.code === 401 || err.code === 403) {
-      window.location.href = "/"; // redirect to login
-    } else {
-      document.getElementById("total-points").innerText = "Error loading points";
+      console.error("Error loading dashboard:", err);
+      // Only redirect if definitely not logged in
+      if (err.code === 401 || err.code === 403) {
+        window.location.href = "/"; // redirect to login
+      } else {
+        document.getElementById("total-points").innerText = "Error loading points";
+      }
     }
   }
-}
 
-// Initialize dashboard
-loadDashboard();
-
-// Bottom navigation logic
-const buttons = document.querySelectorAll('.bottom-nav button');
-const sections = document.querySelectorAll('main section');
-
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    buttons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const targetId = btn.getAttribute('data-target');
-    sections.forEach(sec => sec.classList.remove('active'));
-    document.getElementById(targetId).classList.add('active');
-  });
-});
+  // Initialize dashboard
+  loadDashboard();
 </script>
-
 
 
 </body>
