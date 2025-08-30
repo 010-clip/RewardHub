@@ -15,133 +15,28 @@
     overflow-x: hidden;
     padding-bottom: 70px;
   }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background: rgba(255,255,255,0.02);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-
-  header h1 {
-    font-size: 1.4rem;
-    font-weight: bold;
-    background: linear-gradient(90deg, #06b6d4, #7c3aed);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  main {
-    flex: 1;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .card {
-    background: rgba(255,255,255,0.03);
-    border-radius: 18px;
-    padding: 20px;
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: transform 0.2s, border 0.2s;
-  }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(255,255,255,0.02); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 10; }
+  header h1 { font-size: 1.4rem; font-weight: bold; background: linear-gradient(90deg, #06b6d4, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  main { flex: 1; padding: 15px; display: flex; flex-direction: column; gap: 20px; }
+  .card { background: rgba(255,255,255,0.03); border-radius: 18px; padding: 20px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 10px; transition: transform 0.2s, border 0.2s; }
   .card:hover { transform: translateY(-3px); border: 1px solid rgba(6,182,212,0.4); }
-
-  .card h3 {
-    font-size: 1.2rem;
-    background: linear-gradient(90deg, #06b6d4, #7c3aed);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
+  .card h3 { font-size: 1.2rem; background: linear-gradient(90deg, #06b6d4, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .points { font-size: 2rem; font-weight: bold; color: #06b6d4; }
   .card p { color: #94a3b8; font-size: 0.9rem; }
-
-  .button {
-    background: linear-gradient(90deg, #06b6d4, #7c3aed);
-    border: none;
-    border-radius: 12px;
-    padding: 12px;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 0.95rem;
-    text-align: center;
-    transition: transform 0.2s;
-    width: 100%;
-  }
+  .button { background: linear-gradient(90deg, #06b6d4, #7c3aed); border: none; border-radius: 12px; padding: 12px; color: #fff; font-weight: 600; cursor: pointer; font-size: 0.95rem; text-align: center; transition: transform 0.2s; width: 100%; }
   .button:hover { transform: scale(1.05); }
-
-  .section-title {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    background: linear-gradient(90deg, #06b6d4, #7c3aed);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .horizontal-scroll {
-    display: flex;
-    overflow-x: auto;
-    gap: 15px;
-    padding-bottom: 5px;
-  }
+  .section-title { font-size: 1.4rem; margin-bottom: 10px; background: linear-gradient(90deg, #06b6d4, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .horizontal-scroll { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 5px; }
   .horizontal-scroll::-webkit-scrollbar { display: none; }
-
   table { width: 100%; border-collapse: collapse; margin-top: 10px; }
   th, td { padding: 10px; text-align: left; color: #e6eef8; }
   th { color: #06b6d4; font-weight: 600; }
   tr:hover { background: rgba(6,182,212,0.05); border-radius: 12px; }
-
-  footer {
-    text-align: center;
-    padding: 15px;
-    font-size: 0.85rem;
-    color: #94a3b8;
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
-
-  .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(255,255,255,0.02);
-    backdrop-filter: blur(20px);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    z-index: 20;
-  }
-
-  .bottom-nav button {
-    background: none;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #94a3b8;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
+  footer { text-align: center; padding: 15px; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.05); }
+  .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255,255,255,0.02); backdrop-filter: blur(20px); display: flex; justify-content: space-around; align-items: center; padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.05); z-index: 20; }
+  .bottom-nav button { background: none; border: none; display: flex; flex-direction: column; align-items: center; color: #94a3b8; font-size: 0.8rem; cursor: pointer; transition: color 0.2s; }
   .bottom-nav button.active { color: #06b6d4; }
-
   .bottom-nav svg { width: 24px; height: 24px; margin-bottom: 3px; fill: currentColor; }
-
   section { display: none; }
   section.active { display: flex; flex-direction: column; gap: 20px; }
 </style>
@@ -153,7 +48,6 @@
 </header>
 
 <main>
-  <!-- Dashboard Section -->
   <section id="dashboard" class="active">
     <div class="card" style="align-items: center;">
       <h3>Analytics</h3>
@@ -161,11 +55,10 @@
     </div>
     <div class="card" style="align-items: center;">
       <h3>Total Points</h3>
-      <p class="points">1,250</p>
+      <p class="points" id="total-points">Loading...</p>
     </div>
   </section>
 
-  <!-- Earn Section -->
   <section id="earn">
     <div class="horizontal-scroll">
       <div class="card" style="min-width: 150px;">
@@ -180,7 +73,6 @@
     </div>
   </section>
 
-  <!-- Cashout Section -->
   <section id="cashout">
     <h2 class="section-title">Transaction History</h2>
     <div class="card">
@@ -188,27 +80,10 @@
         <thead>
           <tr><th>Date</th><th>Reward</th><th>Points</th></tr>
         </thead>
-        <tbody>
-          <tr><td>2025-08-28</td><td>PayPal Cash</td><td>500</td></tr>
-          <tr><td>2025-08-25</td><td>Amazon Gift Card</td><td>250</td></tr>
+        <tbody id="transaction-history">
+          <!-- Filled dynamically -->
         </tbody>
       </table>
-    </div>
-
-    <h2 class="section-title">Cashout Options</h2>
-    <div class="horizontal-scroll">
-      <div class="card" style="min-width: 150px;">
-        <h3>Vouchers</h3><p>Redeem points for shopping vouchers</p><button class="button">Redeem</button>
-      </div>
-      <div class="card" style="min-width: 150px;">
-        <h3>Bank Transfer</h3><p>Transfer points to your bank account</p><button class="button">Transfer</button>
-      </div>
-      <div class="card" style="min-width: 150px;">
-        <h3>Gift Cards</h3><p>Redeem points for popular gift cards</p><button class="button">Redeem</button>
-      </div>
-      <div class="card" style="min-width: 150px;">
-      <h3>Digital Wallets</h3><p>Send points to PayPal, Skrill, or other wallets</p><button class="button">Send</button>
-      </div>
     </div>
   </section>
 </main>
@@ -229,7 +104,71 @@
   &copy; 2025 RewardHub. All rights reserved.
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
 <script>
+const client = new Appwrite.Client()
+  .setEndpoint("https://fra.cloud.appwrite.io/v1") // your endpoint
+  .setProject("68b185b20006861f905b"); // your project ID
+
+const account = new Appwrite.Account(client);
+const database = new Appwrite.Databases(client);
+
+// Replace these with your Appwrite database and collection IDs
+const DATABASE_ID = "rewardhub_db";
+const USERS_COLLECTION_ID = "users_col";
+const TRANSACTIONS_COLLECTION_ID = "transactions_col";
+
+async function loadDashboard() {
+  try {
+    // 1. Get current user session
+    const user = await account.get();
+    const userId = user.$id;
+
+    // 2. Try to get the user's document
+    let userDoc;
+    const response = await database.listDocuments(DATABASE_ID, USERS_COLLECTION_ID, [
+      Appwrite.Query.equal("userId", userId)
+    ]);
+
+    if(response.total === 0){
+      // If user document doesn't exist, create it
+      userDoc = await database.createDocument(
+        DATABASE_ID,
+        USERS_COLLECTION_ID,
+        Appwrite.ID.unique(),
+        { userId: userId, points: 0 }
+      );
+    } else {
+      userDoc = response.documents[0];
+    }
+
+    // 3. Populate points
+    document.getElementById("total-points").innerText = userDoc.points;
+
+    // 4. Load transaction history (optional)
+    const transactions = await database.listDocuments(DATABASE_ID, TRANSACTIONS_COLLECTION_ID, [
+      Appwrite.Query.equal("userId", userId),
+      Appwrite.Query.orderDesc("$createdAt")
+    ]);
+
+    const tbody = document.getElementById("transaction-history");
+    tbody.innerHTML = "";
+    transactions.documents.forEach(tx => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${new Date(tx.date).toLocaleDateString()}</td><td>${tx.reward}</td><td>${tx.points}</td>`;
+      tbody.appendChild(tr);
+    });
+
+  } catch (err) {
+    console.error("User not logged in or error:", err);
+    window.location.href = "/"; // redirect to login
+  }
+}
+
+// Initialize dashboard
+loadDashboard();
+
+// Bottom navigation logic
 const buttons = document.querySelectorAll('.bottom-nav button');
 const sections = document.querySelectorAll('main section');
 
@@ -237,7 +176,6 @@ buttons.forEach(btn => {
   btn.addEventListener('click', () => {
     buttons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
     const targetId = btn.getAttribute('data-target');
     sections.forEach(sec => sec.classList.remove('active'));
     document.getElementById(targetId).classList.add('active');
